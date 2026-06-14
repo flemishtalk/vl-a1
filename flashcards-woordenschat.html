@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nederlandse Woordenschat – Flashcards 2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --accent: #6c8eff;
+    --accent2: #b48cff;
+    --hebben: #3b82f6;
+    --zijn: #a855f7;
+    --phrase: #10b981;
+    --text: #e8eaf0;
+    --muted: #7a7f9a;
+    --card-front: #1e2235;
+    --card-back: #1a2030;
+    --card-phrase-front: #1a2820;
+    --card-phrase-back: #162218;
+    --learn: #f59e0b;
+    --learn-bg: rgba(245,158,11,0.12);
+    --radius: 16px;
+    --flip-dur: 0.55s;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  header {
+    padding: 36px 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(108,142,255,0.07) 0%, transparent 100%);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    letter-spacing: 0.3px;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 24px 20px 8px;
+  }
+  .btn {
+    border: none;
+    border-radius: 999px;
+    padding: 9px 22px;
+    font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    letter-spacing: 0.2px;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: var(--muted);
+  }
+  .btn-outline:hover, .btn-outline.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(108,142,255,0.08);
+  }
+  .btn-verb { border-color: var(--hebben); color: var(--hebben); background: rgba(59,130,246,0.08); }
+  .btn-verb.active, .btn-verb:hover { background: rgba(59,130,246,0.18); }
+  .btn-phrase { border-color: var(--phrase); color: var(--phrase); background: rgba(16,185,129,0.08); }
+  .btn-phrase.active, .btn-phrase:hover { background: rgba(16,185,129,0.18); }
+  .btn-learn { border-color: var(--learn); color: var(--learn); background: var(--learn-bg); }
+  .btn-learn.active, .btn-learn:hover { background: rgba(245,158,11,0.22); }
+
+  .stats {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 4px 20px 20px;
+    letter-spacing: 0.2px;
+  }
+  .stats span { color: var(--text); font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 8px 24px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card-wrapper {
+    perspective: 900px;
+    height: 220px;
+  }
+  .card-wrapper.hidden { display: none; }
+
+  .card {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform var(--flip-dur) cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+    border-radius: var(--radius);
+  }
+  .card.flipped { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 22px 20px 16px;
+    border: 1.5px solid rgba(255,255,255,0.07);
+  }
+  .back { transform: rotateY(180deg); border-color: rgba(255,255,255,0.09); }
+
+  /* VERB card colors */
+  .front-verb { background: var(--card-front); }
+  .back-verb  { background: var(--card-back); }
+
+  /* PHRASE card colors */
+  .front-phrase { background: var(--card-phrase-front); border-color: rgba(16,185,129,0.15); }
+  .back-phrase  { background: var(--card-phrase-back);  border-color: rgba(16,185,129,0.12); }
+
+  .card-tag {
+    position: absolute;
+    top: 12px; left: 14px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .tag-hebben { background: rgba(59,130,246,0.15); color: var(--hebben); }
+  .tag-zijn   { background: rgba(168,85,247,0.15); color: var(--zijn); }
+  .tag-phrase { background: rgba(16,185,129,0.15); color: var(--phrase); }
+
+  /* VERB front */
+  .infinitief {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .translations {
+    font-size: 0.74rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.8;
+  }
+  .lang { font-weight: 600; color: rgba(255,255,255,0.30); margin-right: 4px; }
+
+  /* VERB back */
+  .perfectum {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.55rem;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    text-align: center;
+  }
+  .example {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 92%;
+    margin-bottom: 5px;
+  }
+  .example-pl {
+    font-size: 0.75rem;
+    color: rgba(180,140,255,0.75);
+    text-align: center;
+    max-width: 92%;
+    line-height: 1.4;
+  }
+  .example-pl .lang { color: rgba(180,140,255,0.4); }
+
+  /* PHRASE front */
+  .phrase-nl {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 3.5vw, 1.35rem);
+    color: var(--text);
+    text-align: center;
+    line-height: 1.35;
+    max-width: 90%;
+    letter-spacing: -0.2px;
+  }
+  .phrase-sub {
+    margin-top: 9px;
+    font-size: 0.72rem;
+    color: rgba(16,185,129,0.55);
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  /* PHRASE back */
+  .phrase-pl {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    color: var(--text);
+    text-align: center;
+    line-height: 1.35;
+    max-width: 90%;
+    letter-spacing: -0.2px;
+    margin-bottom: 8px;
+  }
+  .phrase-note {
+    font-size: 0.74rem;
+    color: rgba(16,185,129,0.6);
+    text-align: center;
+    max-width: 88%;
+    line-height: 1.4;
+    font-style: italic;
+  }
+
+  .hint {
+    position: absolute;
+    bottom: 12px; right: 15px;
+    font-size: 0.63rem;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 0.3px;
+  }
+
+  /* To-learn */
+  .learn-btn {
+    position: absolute;
+    top: 10px; right: 12px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.18s;
+    z-index: 10;
+    white-space: nowrap;
+  }
+  .learn-btn:hover, .learn-btn.marked {
+    border-color: var(--learn);
+    color: var(--learn);
+    background: var(--learn-bg);
+  }
+  .learn-dot {
+    position: absolute;
+    top: 10px; right: 12px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--learn);
+    display: none;
+    z-index: 10;
+    box-shadow: 0 0 8px var(--learn);
+  }
+  .card-wrapper.to-learn .learn-dot { display: block; }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    grid-column: 1/-1;
+  }
+  .empty strong { display: block; font-size: 1.3rem; margin-bottom: 6px; color: var(--text); font-family: 'Syne', sans-serif; }
+
+  @media (max-width: 500px) {
+    .grid { padding: 8px 12px 0; gap: 14px; }
+    header { padding: 24px 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nederlandse Woordenschat</h1>
+  <p>Klik op een kaart om te draaien · Markeer wat je wilt herhalen</p>
+</header>
+
+<div class="controls">
+  <button class="btn btn-outline active" id="btn-all"    onclick="setFilter('all')">Alle kaarten</button>
+  <button class="btn btn-outline btn-verb"   id="btn-verb"   onclick="setFilter('verb')">Werkwoorden</button>
+  <button class="btn btn-outline btn-phrase" id="btn-phrase" onclick="setFilter('phrase')">Zinnen &amp; woorden</button>
+  <button class="btn btn-outline btn-learn"  id="btn-learn"  onclick="setFilter('learn')">⭐ Te leren</button>
+</div>
+<div class="stats" id="stats"></div>
+<div class="grid" id="grid"></div>
+
+<script>
+// type: 'verb' or 'phrase'
+// verb fields: inf, en, pl, perf, ex, expl, aux
+// phrase fields: nl, pl, note (optional extra gloss shown on back)
+const cards = [
+  // ── VERB CARDS ──────────────────────────────────────────────────────────────
+  {
+    type:"verb", aux:"hebben",
+    inf:"Snoeien",  en:"to prune/trim",  pl:"przycinać",
+    perf:"gesnoeid",
+    ex:"Ik heb de struiken gesnoeid.",
+    expl:"Przyciąłem/am krzewy."
+  },
+  {
+    type:"verb", aux:"hebben",
+    inf:"Aaien",    en:"to stroke/pet",  pl:"głaskać",
+    perf:"geaaid",
+    ex:"Ik heb de katjes geaaid.",
+    expl:"Pogłaskałem/am kotki."
+  },
+  {
+    type:"verb", aux:"hebben",
+    inf:"Knuffelen", en:"to cuddle/hug", pl:"przytulać / pieścić",
+    perf:"geknuffeld",
+    ex:"Ik heb de katjes geknuffeld.",
+    expl:"Przytuliłem/am kotki."
+  },
+  {
+    type:"verb", aux:"hebben",
+    inf:"Ordenen",  en:"to organise/sort", pl:"uporządkować",
+    perf:"geordend",
+    ex:"Ik moet alles ordenen.",
+    expl:"Muszę wszystko uporządkować."
+  },
+  {
+    type:"verb", aux:"hebben",
+    inf:"Verkopen", en:"to sell",         pl:"sprzedawać",
+    perf:"verkocht",
+    ex:"Ik heb een iPod verkocht.",
+    expl:"Sprzedałem/am iPoda."
+  },
+  {
+    type:"verb", aux:"zijn",
+    inf:"Vermageren", en:"to lose weight / slim down", pl:"chudnąć / szczupleć",
+    perf:"vermagerd",
+    ex:"Filemon is vermagerd.",
+    expl:"Filemon schudł / zeszczuplał."
+  },
+  {
+    type:"verb", aux:"zijn",
+    inf:"Bijkomen",  en:"to gain weight",  pl:"przytyć",
+    perf:"bijgekomen",
+    ex:"Gili is bijgekomen.",
+    expl:"Gili przytyła."
+  },
+  // ── PHRASE CARDS ─────────────────────────────────────────────────────────────
+  {
+    type:"phrase",
+    nl:"Ik ben het niet meer gewoon.",
+    pl:"Odzwyczaiłem/am się.",
+    note:"dosł. Już nie jestem do tego przyzwyczajony/a."
+  },
+  {
+    type:"phrase",
+    nl:"de struiken",
+    pl:"krzaki / krzewy",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"de verzending is inbegrepen",
+    pl:"wysyłka jest wliczona (w cenę)",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"de vloer is nat",
+    pl:"podłoga jest mokra",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"Ik moet meer plaats maken in mijn (werk)kot.",
+    pl:"Muszę zrobić więcej miejsca w moim (domowym) biurze.",
+    note:"(werk)kot = nieformalne określenie małego pokoju/biurka"
+  },
+  {
+    type:"phrase",
+    nl:"een klachtenformulier invullen",
+    pl:"wypełnić formularz reklamacyjny / skargi",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"De iPod is naar Zimbabwe gekomen.",
+    pl:"iPod dotarł do Zimbabwe.",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"Zij hebben deze iPod naar België teruggestuurd / verstuurd.",
+    pl:"Odesłali / wysłali tego iPoda z powrotem do Belgii.",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"Zij hebben het drie keer gedaan.",
+    pl:"Zrobili to trzy razy.",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"Hoe is het opgelost geraakt?",
+    pl:"Jak to zostało rozwiązane?",
+    note:""
+  },
+  {
+    type:"phrase",
+    nl:"Je kan er niks mee regelen.",
+    pl:"Nic się nie da z nimi załatwić.",
+    note:""
+  },
+];
+
+let toLearn = new Set(JSON.parse(localStorage.getItem('toLearn2') || '[]'));
+let currentFilter = 'all';
+
+function saveToLearn() {
+  localStorage.setItem('toLearn2', JSON.stringify([...toLearn]));
+}
+
+function toggleLearn(idx, e) {
+  e.stopPropagation();
+  toLearn.has(idx) ? toLearn.delete(idx) : toLearn.add(idx);
+  saveToLearn();
+  renderAll();
+}
+
+function flipCard(idx) {
+  document.getElementById('card-' + idx).classList.toggle('flipped');
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.controls .btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + f).classList.add('active');
+  renderAll();
+}
+
+function renderAll() {
+  let visible = 0;
+  cards.forEach((c, i) => {
+    const w = document.getElementById('wrap-' + i);
+    const lb = document.getElementById('learnbtn-' + i);
+    const isLearn = toLearn.has(i);
+    let show = true;
+    if (currentFilter === 'verb'   && c.type !== 'verb')   show = false;
+    if (currentFilter === 'phrase' && c.type !== 'phrase') show = false;
+    if (currentFilter === 'learn'  && !isLearn)            show = false;
+    w.classList.toggle('hidden', !show);
+    if (show) visible++;
+    w.classList.toggle('to-learn', isLearn);
+    lb.classList.toggle('marked', isLearn);
+    lb.textContent = isLearn ? '⭐ Te leren' : 'Te leren';
+  });
+
+  let empty = document.getElementById('empty-msg');
+  if (!empty) {
+    empty = document.createElement('div');
+    empty.id = 'empty-msg';
+    empty.className = 'empty';
+    document.getElementById('grid').appendChild(empty);
+  }
+  empty.style.display = visible === 0 ? '' : 'none';
+  if (visible === 0)
+    empty.innerHTML = currentFilter === 'learn'
+      ? '<strong>Geen kaarten gemarkeerd</strong>Druk op "Te leren" op een kaart om ze hier te zien.'
+      : '<strong>Geen kaarten</strong>';
+
+  document.getElementById('stats').innerHTML =
+    `<span>${visible}</span> van <span>${cards.length}</span> kaarten &nbsp;·&nbsp; <span>${toLearn.size}</span> gemarkeerd als te leren`;
+}
+
+function buildCards() {
+  const grid = document.getElementById('grid');
+  cards.forEach((c, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'card-wrapper';
+    wrap.id = 'wrap-' + i;
+
+    let html = '';
+    if (c.type === 'verb') {
+      const tagClass = c.aux === 'hebben' ? 'tag-hebben' : 'tag-zijn';
+      html = `
+      <div class="card" id="card-${i}" onclick="flipCard(${i})">
+        <div class="face front-verb">
+          <span class="card-tag ${tagClass}">${c.aux}</span>
+          <button class="learn-btn" id="learnbtn-${i}" onclick="toggleLearn(${i},event)">Te leren</button>
+          <div class="learn-dot"></div>
+          <div class="infinitief">${c.inf}</div>
+          <div class="translations">
+            <span class="lang">EN</span>${c.en}<br>
+            <span class="lang">PL</span>${c.pl}
+          </div>
+          <span class="hint">klik om te draaien →</span>
+        </div>
+        <div class="face back back-verb">
+          <span class="card-tag ${tagClass}">${c.aux}</span>
+          <div class="perfectum">${c.perf}</div>
+          <div class="example">${c.ex}</div>
+          <div class="example-pl"><span class="lang">PL</span>${c.expl}</div>
+          <span class="hint">← klik om terug te draaien</span>
+        </div>
+      </div>`;
+    } else {
+      html = `
+      <div class="card" id="card-${i}" onclick="flipCard(${i})">
+        <div class="face front-phrase">
+          <span class="card-tag tag-phrase">zin / woord</span>
+          <button class="learn-btn" id="learnbtn-${i}" onclick="toggleLearn(${i},event)">Te leren</button>
+          <div class="learn-dot"></div>
+          <div class="phrase-nl">${c.nl}</div>
+          <div class="phrase-sub">klik voor Poolse vertaling</div>
+          <span class="hint">klik om te draaien →</span>
+        </div>
+        <div class="face back back-phrase">
+          <span class="card-tag tag-phrase">vertaling</span>
+          <div class="phrase-pl">${c.pl}</div>
+          ${c.note ? `<div class="phrase-note">${c.note}</div>` : ''}
+          <span class="hint">← klik om terug te draaien</span>
+        </div>
+      </div>`;
+    }
+
+    wrap.innerHTML = html;
+    grid.appendChild(wrap);
+  });
+}
+
+buildCards();
+renderAll();
+</script>
+</body>
+</html>

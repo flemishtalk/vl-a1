@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nederlandse Werkwoorden – Flashcards</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --accent: #6c8eff;
+    --accent2: #b48cff;
+    --hebben: #3b82f6;
+    --zijn: #a855f7;
+    --text: #e8eaf0;
+    --muted: #7a7f9a;
+    --card-front: #1e2235;
+    --card-back: #1a2030;
+    --learn: #f59e0b;
+    --learn-bg: rgba(245,158,11,0.12);
+    --radius: 16px;
+    --flip-dur: 0.55s;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* Header */
+  header {
+    padding: 36px 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(108,142,255,0.07) 0%, transparent 100%);
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.88rem;
+    letter-spacing: 0.3px;
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 24px 20px 8px;
+  }
+  .btn {
+    border: none;
+    border-radius: 999px;
+    padding: 9px 22px;
+    font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    letter-spacing: 0.2px;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    color: var(--muted);
+  }
+  .btn-outline:hover, .btn-outline.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(108,142,255,0.08);
+  }
+  .btn-hebben { border-color: var(--hebben); color: var(--hebben); background: rgba(59,130,246,0.08); }
+  .btn-hebben.active, .btn-hebben:hover { background: rgba(59,130,246,0.18); }
+  .btn-zijn { border-color: var(--zijn); color: var(--zijn); background: rgba(168,85,247,0.08); }
+  .btn-zijn.active, .btn-zijn:hover { background: rgba(168,85,247,0.18); }
+  .btn-learn { border-color: var(--learn); color: var(--learn); background: var(--learn-bg); }
+  .btn-learn.active, .btn-learn:hover { background: rgba(245,158,11,0.22); }
+
+  .stats {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 4px 20px 20px;
+    letter-spacing: 0.2px;
+  }
+  .stats span { color: var(--text); font-weight: 600; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 8px 24px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Card */
+  .card-wrapper {
+    perspective: 900px;
+    height: 210px;
+  }
+  .card-wrapper.hidden { display: none; }
+
+  .card {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform var(--flip-dur) cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+    border-radius: var(--radius);
+  }
+  .card.flipped { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 22px 24px 16px;
+    border: 1.5px solid rgba(255,255,255,0.07);
+    gap: 0;
+  }
+
+  .front {
+    background: var(--card-front);
+  }
+  .back {
+    background: var(--card-back);
+    transform: rotateY(180deg);
+    border-color: rgba(255,255,255,0.09);
+  }
+
+  .card-tag {
+    position: absolute;
+    top: 12px; left: 14px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+  .tag-hebben { background: rgba(59,130,246,0.15); color: var(--hebben); }
+  .tag-zijn { background: rgba(168,85,247,0.15); color: var(--zijn); }
+
+  .infinitief {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .translations {
+    font-size: 0.74rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.7;
+  }
+  .translations .lang { font-weight: 600; color: rgba(255,255,255,0.35); margin-right: 4px; }
+
+  .hint {
+    position: absolute;
+    bottom: 13px; right: 16px;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.3px;
+  }
+
+  /* Back face */
+  .perfectum {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .example {
+    font-size: 0.84rem;
+    color: var(--muted);
+    text-align: center;
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 90%;
+    margin-bottom: 6px;
+  }
+  .example-pl {
+    font-size: 0.76rem;
+    color: rgba(180,140,255,0.7);
+    text-align: center;
+    max-width: 90%;
+    line-height: 1.4;
+  }
+  .example-pl .lang { font-weight: 700; color: rgba(180,140,255,0.45); margin-right: 4px; font-style: normal; }
+
+  /* To-learn button */
+  .learn-btn {
+    position: absolute;
+    top: 10px; right: 12px;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.18s;
+    z-index: 10;
+    white-space: nowrap;
+  }
+  .learn-btn:hover {
+    border-color: var(--learn);
+    color: var(--learn);
+    background: var(--learn-bg);
+  }
+  .learn-btn.marked {
+    border-color: var(--learn);
+    color: var(--learn);
+    background: var(--learn-bg);
+  }
+
+  .learn-dot {
+    position: absolute;
+    top: 10px; right: 12px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--learn);
+    display: none;
+    z-index: 10;
+    box-shadow: 0 0 8px var(--learn);
+  }
+  .card-wrapper.to-learn .learn-dot { display: block; }
+
+  /* Empty state */
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    grid-column: 1/-1;
+  }
+  .empty strong { display: block; font-size: 1.3rem; margin-bottom: 6px; color: var(--text); font-family: 'Syne', sans-serif; }
+
+  @media (max-width: 500px) {
+    .grid { padding: 8px 12px 0; gap: 14px; }
+    header { padding: 24px 16px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nederlandse Werkwoorden</h1>
+  <p>Klik op een kaart om te draaien · Markeer wat je wilt herhalen</p>
+</header>
+
+<div class="controls">
+  <button class="btn btn-outline active" id="btn-all" onclick="setFilter('all')">Alle werkwoorden</button>
+  <button class="btn btn-outline btn-hebben" id="btn-hebben" onclick="setFilter('hebben')">hebben</button>
+  <button class="btn btn-outline btn-zijn" id="btn-zijn" onclick="setFilter('zijn')">zijn</button>
+  <button class="btn btn-outline btn-learn" id="btn-learn" onclick="setFilter('learn')">⭐ Te leren</button>
+</div>
+<div class="stats" id="stats"></div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const cards = [
+  // hebben
+  { inf:"Doen",      en:"to do",           pl:"robić",            perf:"gedaan",     ex:"Ik heb dat gedaan.",                               expl:"Zrobiłem/am to.",                                    aux:"hebben" },
+  { inf:"Zeggen",    en:"to say",          pl:"mówić",            perf:"gezegd",     ex:"Je hebt dat gezegd.",                              expl:"Powiedziałeś/aś to.",                                aux:"hebben" },
+  { inf:"Zien",      en:"to see",          pl:"widzieć",          perf:"gezien",     ex:"We hebben het gezien.",                            expl:"Widzieliśmy to.",                                    aux:"hebben" },
+  { inf:"Horen",     en:"to hear",         pl:"słyszeć",          perf:"gehoord",    ex:"Heb je dat gehoord?",                              expl:"Słyszałeś/aś to?",                                   aux:"hebben" },
+  { inf:"Hebben",    en:"to have",         pl:"mieć",             perf:"gehad",      ex:"Zij heeft geluk gehad.",                           expl:"Ona miała szczęście.",                                aux:"hebben" },
+  { inf:"Maken",     en:"to make",         pl:"robić/tworzyć",    perf:"gemaakt",    ex:"We hebben dat zelf gemaakt.",                      expl:"Zrobiliśmy to sami.",                                aux:"hebben" },
+  { inf:"Kopen",     en:"to buy",          pl:"kupować",          perf:"gekocht",    ex:"Ik heb een nieuwe auto gekocht.",                  expl:"Kupiłem/am nowy samochód.",                          aux:"hebben" },
+  { inf:"Eten",      en:"to eat",          pl:"jeść",             perf:"gegeten",    ex:"Heb je al gegeten?",                               expl:"Czy już jadłeś/aś?",                                 aux:"hebben" },
+  { inf:"Drinken",   en:"to drink",        pl:"pić",              perf:"gedronken",  ex:"We hebben iets gedronken.",                        expl:"Wypiliśmy coś.",                                     aux:"hebben" },
+  { inf:"Lezen",     en:"to read",         pl:"czytać",           perf:"gelezen",    ex:"Ik heb die krant gelezen.",                        expl:"Przeczytałem/am tę gazetę.",                         aux:"hebben" },
+  { inf:"Schrijven", en:"to write",        pl:"pisać",            perf:"geschreven", ex:"Wie heeft dat geschreven?",                        expl:"Kto to napisał?",                                    aux:"hebben" },
+  { inf:"Kijken",    en:"to watch",        pl:"patrzeć/oglądać",  perf:"gekeken",    ex:"We hebben gisteren naar die nieuwe film gekeken.", expl:"Wczoraj obejrzeliśmy ten nowy film.",                aux:"hebben" },
+  { inf:"Krijgen",   en:"to get/receive",  pl:"dostać/otrzymać",  perf:"gekregen",   ex:"Ik heb een cadeau gekregen.",                      expl:"Dostałem/am prezent.",                               aux:"hebben" },
+  { inf:"Denken",    en:"to think",        pl:"myśleć",           perf:"gedacht",    ex:"Ik heb daaraan gedacht.",                          expl:"Myślałem/am o tym.",                                 aux:"hebben" },
+  { inf:"Weten",     en:"to know",         pl:"wiedzieć",         perf:"geweten",    ex:"Ik heb dat nooit geweten.",                        expl:"Nigdy o tym nie wiedziałem/am.",                     aux:"hebben" },
+  { inf:"Praten",    en:"to talk",         pl:"rozmawiać",        perf:"gepraat",    ex:"We hebben lang gepraat.",                          expl:"Długo rozmawialiśmy.",                               aux:"hebben" },
+  { inf:"Zetten",    en:"to put/set",      pl:"kłaść/stawiać",    perf:"gezet",      ex:"Waar heb je dat gezet?",                           expl:"Gdzie to postawiłeś/aś?",                            aux:"hebben" },
+  { inf:"Pakken",    en:"to take/grab",    pl:"brać/chwytać",     perf:"gepakt",     ex:"Hij heeft zijn jas gepakt.",                       expl:"Wziął swój płaszcz.",                                aux:"hebben" },
+  { inf:"Betalen",   en:"to pay",          pl:"płacić",           perf:"betaald",    ex:"Ik heb de rekening al betaald.",                   expl:"Zapłaciłem/am już rachunek.",                        aux:"hebben" },
+  { inf:"Vragen",    en:"to ask",          pl:"pytać",            perf:"gevraagd",   ex:"Wat heb je aan hem gevraagd?",                     expl:"O co go zapytałeś/aś?",                              aux:"hebben" },
+  { inf:"Leren",     en:"to learn",        pl:"uczyć się",        perf:"geleerd",    ex:"Ik heb veel geleerd vandaag.",                     expl:"Dużo się dziś nauczyłem/am.",                        aux:"hebben" },
+  { inf:"Kiezen",    en:"to choose",       pl:"wybierać",         perf:"gekozen",    ex:"We hebben de rode gekozen.",                       expl:"Wybraliśmy czerwony.",                               aux:"hebben" },
+  { inf:"Slapen",    en:"to sleep",        pl:"spać",             perf:"geslapen",   ex:"Heb je goed geslapen?",                            expl:"Czy dobrze spałeś/aś?",                              aux:"hebben" },
+  { inf:"Wachten",   en:"to wait",         pl:"czekać",           perf:"gewacht",    ex:"We hebben lang gewacht.",                          expl:"Długo czekaliśmy.",                                  aux:"hebben" },
+  { inf:"Babbelen",  en:"to chat/chatter", pl:"gadać/paplać",     perf:"gebabbeld",  ex:"Ze hebben de hele nacht gebabbeld.",               expl:"Gadały całą noc.",                                   aux:"hebben" },
+  // zijn
+  { inf:"Zijn",      en:"to be",           pl:"być",              perf:"geweest",    ex:"Ik ben er geweest.",                               expl:"Byłem/am tam.",                                      aux:"zijn" },
+  { inf:"Gaan",      en:"to go",           pl:"iść/chodzić",      perf:"gegaan",     ex:"Waar ben je naartoe gegaan?",                      expl:"Dokąd poszedłeś/aś?",                                aux:"zijn" },
+  { inf:"Komen",     en:"to come",         pl:"przychodzić",      perf:"gekomen",    ex:"Zij is gisteren gekomen.",                         expl:"Ona przyszła wczoraj.",                               aux:"zijn" },
+  { inf:"Worden",    en:"to become",       pl:"stawać się",       perf:"geworden",   ex:"Hij is gisteren dertig geworden.",                 expl:"On wczoraj skończył trzydzieści lat.",                aux:"zijn" },
+  { inf:"Blijven",   en:"to stay",         pl:"zostawać",         perf:"gebleven",   ex:"We zijn thuis gebleven.",                          expl:"Zostaliśmy w domu.",                                 aux:"zijn" },
+  { inf:"Vallen",    en:"to fall",         pl:"padać/upadać",     perf:"gevallen",   ex:"Pas op, het is gevallen.",                         expl:"Uważaj, to spadło.",                                 aux:"zijn" },
+  { inf:"Vertrekken",en:"to leave/depart", pl:"wyjeżdżać",        perf:"vertrokken", ex:"De trein is al vertrokken.",                       expl:"Pociąg już odjechał.",                               aux:"zijn" },
+  { inf:"Stoppen",   en:"to stop",         pl:"zatrzymywać się",  perf:"gestopt",    ex:"De auto is gestopt.",                              expl:"Samochód zatrzymał się.",                            aux:"zijn" },
+  { inf:"Gebeuren",  en:"to happen",       pl:"zdarzać się",      perf:"gebeurd",    ex:"Wat is er gebeurd?",                               expl:"Co się stało?",                                      aux:"zijn" },
+  { inf:"Lopen",     en:"to walk/run",     pl:"chodzić/biec",     perf:"gelopen",    ex:"Is het mis gelopen?",                              expl:"Czy coś poszło nie tak?",                            aux:"zijn" },
+  { inf:"Sterven",   en:"to die",          pl:"umierać",          perf:"gestorven",  ex:"Onze goudvis is gestorven.",                       expl:"Nasza złota rybka zdechła.",                         aux:"zijn" },
+  { inf:"Beginnen",  en:"to begin",        pl:"zaczynać",         perf:"begonnen",   ex:"De match is begonnen.",                            expl:"Mecz się zaczął.",                                   aux:"zijn" },
+  { inf:"Slagen",    en:"to succeed",      pl:"udać się/zdać",    perf:"geslaagd",   ex:"Zij is geslaagd voor haar examen!",                expl:"Zdała egzamin!",                                     aux:"zijn" },
+  { inf:"Veranderen",en:"to change",       pl:"zmieniać się",     perf:"veranderd",  ex:"De plannen zijn veranderd.",                       expl:"Plany się zmieniły.",                                aux:"zijn" },
+  { inf:"Groeien",   en:"to grow",         pl:"rosnąć",           perf:"gegroeid",   ex:"De struiken zijn hard gegroeid.",                  expl:"Krzewy bardzo urosły.",                              aux:"zijn" },
+];
+
+let toLearn = new Set(JSON.parse(localStorage.getItem('toLearn') || '[]'));
+let currentFilter = 'all';
+
+function saveToLearn() {
+  localStorage.setItem('toLearn', JSON.stringify([...toLearn]));
+}
+
+function toggleLearn(idx, e) {
+  e.stopPropagation();
+  if (toLearn.has(idx)) {
+    toLearn.delete(idx);
+  } else {
+    toLearn.add(idx);
+  }
+  saveToLearn();
+  renderAll();
+}
+
+function flipCard(idx) {
+  const card = document.getElementById('card-' + idx);
+  card.classList.toggle('flipped');
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.controls .btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + f).classList.add('active');
+  renderAll();
+}
+
+function renderAll() {
+  const grid = document.getElementById('grid');
+  let visible = 0;
+  cards.forEach((c, i) => {
+    const w = document.getElementById('wrap-' + i);
+    const learnBtn = document.getElementById('learnbtn-' + i);
+    const isLearn = toLearn.has(i);
+    let show = true;
+    if (currentFilter === 'hebben' && c.aux !== 'hebben') show = false;
+    if (currentFilter === 'zijn' && c.aux !== 'zijn') show = false;
+    if (currentFilter === 'learn' && !isLearn) show = false;
+    w.classList.toggle('hidden', !show);
+    if (show) visible++;
+    w.classList.toggle('to-learn', isLearn);
+    learnBtn.classList.toggle('marked', isLearn);
+    learnBtn.textContent = isLearn ? '⭐ Te leren' : 'Te leren';
+  });
+
+  // empty state
+  let empty = document.getElementById('empty-msg');
+  if (!empty) {
+    empty = document.createElement('div');
+    empty.id = 'empty-msg';
+    empty.className = 'empty';
+    grid.appendChild(empty);
+  }
+  if (visible === 0) {
+    empty.innerHTML = currentFilter === 'learn'
+      ? '<strong>Geen kaarten gemarkeerd</strong>Druk op "Te leren" op een kaart om ze hier te zien.'
+      : '<strong>Geen kaarten</strong>';
+    empty.style.display = '';
+  } else {
+    empty.style.display = 'none';
+  }
+
+  updateStats(visible);
+}
+
+function updateStats(visible) {
+  const total = cards.length;
+  const learnCount = toLearn.size;
+  document.getElementById('stats').innerHTML =
+    `<span>${visible}</span> van <span>${total}</span> kaarten &nbsp;·&nbsp; <span>${learnCount}</span> gemarkeerd als te leren`;
+}
+
+function buildCards() {
+  const grid = document.getElementById('grid');
+  cards.forEach((c, i) => {
+    const tagClass = c.aux === 'hebben' ? 'tag-hebben' : 'tag-zijn';
+    const wrap = document.createElement('div');
+    wrap.className = 'card-wrapper';
+    wrap.id = 'wrap-' + i;
+
+    wrap.innerHTML = `
+      <div class="card" id="card-${i}" onclick="flipCard(${i})">
+        <!-- FRONT -->
+        <div class="face front">
+          <span class="card-tag ${tagClass}">${c.aux}</span>
+          <button class="learn-btn" id="learnbtn-${i}" onclick="toggleLearn(${i}, event)">Te leren</button>
+          <div class="learn-dot"></div>
+          <div class="infinitief">${c.inf}</div>
+          <div class="translations">
+            <span class="lang">EN</span>${c.en}<br>
+            <span class="lang">PL</span>${c.pl}
+          </div>
+          <span class="hint">klik om te draaien →</span>
+        </div>
+        <!-- BACK -->
+        <div class="face back">
+          <span class="card-tag ${tagClass}">${c.aux}</span>
+          <div class="perfectum">${c.perf}</div>
+          <div class="example">${c.ex}</div>
+          <div class="example-pl"><span class="lang">PL</span>${c.expl}</div>
+          <span class="hint">← klik om terug te draaien</span>
+        </div>
+      </div>`;
+    grid.appendChild(wrap);
+  });
+}
+
+buildCards();
+renderAll();
+</script>
+</body>
+</html>

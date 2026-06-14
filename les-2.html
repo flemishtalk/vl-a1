@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcja 2 – Liczby | Vlaams A1</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">🇧🇪 Vlaams A1</a>
+  <div class="nav-links">
+    <a href="../index.html">Start</a>
+    <a href="../flashcards-werkwoorden.html">Fiszki</a>
+    <a href="../test.html">Test</a>
+  </div>
+</nav>
+
+<div class="lesson-wrap">
+  <div class="lesson-header">
+    <div class="breadcrumb"><a href="../index.html">Start</a> › Lekcja 2</div>
+    <div class="lesson-num" style="color:var(--accent);font-size:0.75rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">Lekcja 2</div>
+    <h1>Liczby i dane osobowe</h1>
+    <p>Liczby 0–100, jak powiedzieć swój wiek, numer telefonu i adres e-mail.</p>
+  </div>
+
+  <div class="vocab-section">
+    <h2>🔢 Liczby 0–20</h2>
+    <div class="vocab-grid">
+      <div class="vocab-item"><span class="vocab-nl">0 — nul</span><span class="vocab-pl">zero</span></div>
+      <div class="vocab-item"><span class="vocab-nl">1 — één</span><span class="vocab-pl">jeden</span></div>
+      <div class="vocab-item"><span class="vocab-nl">2 — twee</span><span class="vocab-pl">dwa</span></div>
+      <div class="vocab-item"><span class="vocab-nl">3 — drie</span><span class="vocab-pl">trzy</span></div>
+      <div class="vocab-item"><span class="vocab-nl">4 — vier</span><span class="vocab-pl">cztery</span></div>
+      <div class="vocab-item"><span class="vocab-nl">5 — vijf</span><span class="vocab-pl">pięć</span></div>
+      <div class="vocab-item"><span class="vocab-nl">6 — zes</span><span class="vocab-pl">sześć</span></div>
+      <div class="vocab-item"><span class="vocab-nl">7 — zeven</span><span class="vocab-pl">siedem</span></div>
+      <div class="vocab-item"><span class="vocab-nl">8 — acht</span><span class="vocab-pl">osiem</span></div>
+      <div class="vocab-item"><span class="vocab-nl">9 — negen</span><span class="vocab-pl">dziewięć</span></div>
+      <div class="vocab-item"><span class="vocab-nl">10 — tien</span><span class="vocab-pl">dziesięć</span></div>
+      <div class="vocab-item"><span class="vocab-nl">11 — elf</span><span class="vocab-pl">jedenaście</span></div>
+      <div class="vocab-item"><span class="vocab-nl">12 — twaalf</span><span class="vocab-pl">dwanaście</span></div>
+      <div class="vocab-item"><span class="vocab-nl">20 — twintig</span><span class="vocab-pl">dwadzieścia</span></div>
+      <div class="vocab-item"><span class="vocab-nl">30 — dertig</span><span class="vocab-pl">trzydzieści</span></div>
+      <div class="vocab-item"><span class="vocab-nl">100 — honderd</span><span class="vocab-pl">sto</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <h2>👤 Dane osobowe</h2>
+    <div class="vocab-grid">
+      <div class="vocab-item"><span class="vocab-nl">Hoe oud ben je?</span><span class="vocab-pl">Ile masz lat?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Ik ben … jaar oud.</span><span class="vocab-pl">Mam … lat.</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Wat is je telefoonnummer?</span><span class="vocab-pl">Jaki masz numer telefonu?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Wat is je e-mailadres?</span><span class="vocab-pl">Jaki masz adres e-mail?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Waar woon je?</span><span class="vocab-pl">Gdzie mieszkasz?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Ik woon in…</span><span class="vocab-pl">Mieszkam w…</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <h2>💬 Mini dialog</h2>
+    <div class="ex-card" style="font-size:0.9rem;line-height:2">
+      <p><strong>A:</strong> Hoe oud ben je?</p>
+      <p><strong>B:</strong> Ik ben tweeëntwintig jaar oud. En jij?</p>
+      <p><strong>A:</strong> Ik ben dertig.</p>
+      <p><strong>B:</strong> Wat is je telefoonnummer?</p>
+      <p><strong>A:</strong> Nul — vier — twee — drie — vijf — zes — zeven — acht.</p>
+      <hr style="border-color:var(--border);margin:16px 0">
+      <p style="color:var(--muted);font-size:0.8rem"><strong>PL:</strong> Ile masz lat? / Mam dwadzieścia dwa lata. A ty? / Mam trzydzieści. / Jaki masz numer telefonu? / Zero — cztery — dwa — trzy — pięć — sześć — siedem — osiem.</p>
+    </div>
+  </div>
+
+  <div class="exercise-block">
+    <h2>✏️ Ćwiczenie 1 — Wpisz liczby słowami</h2>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak napisać liczbę <strong>7</strong> po niderlandzku?</div>
+      <div class="fill-row">
+        <input class="fill-in" id="n1" placeholder="wpisz..." onkeydown="if(event.key==='Enter')cfn('n1','fb-n1','zeven')">
+        <button class="check-btn" onclick="cfn('n1','fb-n1','zeven')">Sprawdź</button>
+      </div>
+      <div class="ex-feedback" id="fb-n1"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak napisać liczbę <strong>12</strong> po niderlandzku?</div>
+      <div class="fill-row">
+        <input class="fill-in" id="n2" placeholder="wpisz..." onkeydown="if(event.key==='Enter')cfn('n2','fb-n2','twaalf')">
+        <button class="check-btn" onclick="cfn('n2','fb-n2','twaalf')">Sprawdź</button>
+      </div>
+      <div class="ex-feedback" id="fb-n2"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak napisać liczbę <strong>30</strong> po niderlandzku?</div>
+      <div class="fill-row">
+        <input class="fill-in" id="n3" placeholder="wpisz..." onkeydown="if(event.key==='Enter')cfn('n3','fb-n3','dertig')">
+        <button class="check-btn" onclick="cfn('n3','fb-n3','dertig')">Sprawdź</button>
+      </div>
+      <div class="ex-feedback" id="fb-n3"></div>
+    </div>
+  </div>
+
+  <div class="exercise-block">
+    <h2>🧠 Ćwiczenie 2 — Quiz</h2>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak zapytać kogoś o wiek?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb1'),'Hoe oud ben je?')">Waar woon je?</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('qfb1'),'Hoe oud ben je?')">Hoe oud ben je?</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb1'),'Hoe oud ben je?')">Hoe heet je?</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb1'),'Hoe oud ben je?')">Wat is je e-mailadres?</button>
+      </div>
+      <div class="ex-feedback" id="qfb1"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Ile oznacza "twintig"?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb2'),'20 (dwadzieścia)')">10</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb2'),'20 (dwadzieścia)')">12</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('qfb2'),'20 (dwadzieścia)')">20</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb2'),'20 (dwadzieścia)')">30</button>
+      </div>
+      <div class="ex-feedback" id="qfb2"></div>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="les-1.html" class="btn btn-outline">← Lekcja 1</a>
+    <a href="les-3.html" class="btn btn-primary">Lekcja 3 →</a>
+  </div>
+</div>
+
+<footer><p>Kurs Vlaams A1 · <a href="../index.html">Strona główna</a></p></footer>
+<script src="../assets/shared.js"></script>
+<script>
+function cfn(inputId, fbId, correct, alts) {
+  const inp = document.getElementById(inputId);
+  handleFill(inp, inp.nextElementSibling, document.getElementById(fbId), correct, alts || []);
+}
+</script>
+</body>
+</html>
