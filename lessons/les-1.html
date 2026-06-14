@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcja 1 – Powitania | Vlaams A1</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">🇧🇪 Vlaams A1</a>
+  <div class="nav-links">
+    <a href="../index.html">Start</a>
+    <a href="../flashcards-werkwoorden.html">Fiszki</a>
+    <a href="../test.html">Test</a>
+  </div>
+</nav>
+
+<div class="lesson-wrap">
+  <div class="lesson-header">
+    <div class="breadcrumb"><a href="../index.html">Start</a> › Lekcja 1</div>
+    <div class="lesson-num" style="color:var(--accent);font-size:0.75rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">Lekcja 1</div>
+    <h1>Powitania i przedstawianie się</h1>
+    <p>Naucz się pierwszych słów po niderlandzku — jak się przywitać, pożegnać i przedstawić.</p>
+  </div>
+
+  <!-- VOCABULARY -->
+  <div class="vocab-section">
+    <h2>📖 Słownictwo</h2>
+    <div class="vocab-grid">
+      <div class="vocab-item"><span class="vocab-nl">Hallo</span><span class="vocab-pl">Cześć / Hej</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Goedemorgen</span><span class="vocab-pl">Dzień dobry (rano)</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Goedemiddag</span><span class="vocab-pl">Dzień dobry (południe)</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Goedenavond</span><span class="vocab-pl">Dobry wieczór</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Goedenacht</span><span class="vocab-pl">Dobranoc</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Tot ziens</span><span class="vocab-pl">Do widzenia</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Tot straks</span><span class="vocab-pl">Do zobaczenia</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Ik heet…</span><span class="vocab-pl">Nazywam się…</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Hoe heet je?</span><span class="vocab-pl">Jak masz na imię?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Mijn naam is…</span><span class="vocab-pl">Moje imię to…</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Aangenaam</span><span class="vocab-pl">Miło mi / Bardzo mi miło</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Alstublieft</span><span class="vocab-pl">Proszę (formalnie)</span></div>
+    </div>
+  </div>
+
+  <!-- DIALOGUE -->
+  <div class="vocab-section">
+    <h2>💬 Przykładowy dialog</h2>
+    <div class="ex-card" style="font-size:0.9rem;line-height:2">
+      <p><strong>A:</strong> Goedemorgen! Ik heet Anna. Hoe heet je?</p>
+      <p><strong>B:</strong> Goedemorgen! Ik heet Pieter. Aangenaam!</p>
+      <p><strong>A:</strong> Aangenaam, Pieter. Tot straks!</p>
+      <p><strong>B:</strong> Tot straks!</p>
+      <hr style="border-color:var(--border);margin:16px 0">
+      <p style="color:var(--muted);font-size:0.8rem"><strong>PL:</strong> Dzień dobry! Nazywam się Anna. Jak masz na imię? / Dzień dobry! Nazywam się Pieter. Miło mi! / Miło mi, Pieter. Do zobaczenia! / Do zobaczenia!</p>
+    </div>
+  </div>
+
+  <!-- EXERCISE 1: match -->
+  <div class="exercise-block">
+    <h2>🎯 Ćwiczenie 1 — Dopasuj słowo do tłumaczenia</h2>
+    <p class="ex-prompt" style="margin-bottom:16px">Kliknij słowo po niderlandzku, a potem jego polskie tłumaczenie.</p>
+    <div class="match-wrap" id="match-wrap">
+      <div class="match-col" id="col-nl">
+        <div class="match-item" data-pair="1" data-side="nl" onclick="matchClick(this)">Goedemorgen</div>
+        <div class="match-item" data-pair="2" data-side="nl" onclick="matchClick(this)">Aangenaam</div>
+        <div class="match-item" data-pair="3" data-side="nl" onclick="matchClick(this)">Hoe heet je?</div>
+        <div class="match-item" data-pair="4" data-side="nl" onclick="matchClick(this)">Tot ziens</div>
+        <div class="match-item" data-pair="5" data-side="nl" onclick="matchClick(this)">Goedenavond</div>
+      </div>
+      <div class="match-col" id="col-pl">
+        <div class="match-item" data-pair="3" data-side="pl" onclick="matchClick(this)">Jak masz na imię?</div>
+        <div class="match-item" data-pair="5" data-side="pl" onclick="matchClick(this)">Dobry wieczór</div>
+        <div class="match-item" data-pair="1" data-side="pl" onclick="matchClick(this)">Dzień dobry (rano)</div>
+        <div class="match-item" data-pair="4" data-side="pl" onclick="matchClick(this)">Do widzenia</div>
+        <div class="match-item" data-pair="2" data-side="pl" onclick="matchClick(this)">Miło mi</div>
+      </div>
+    </div>
+    <div id="match-result" style="margin-top:14px;font-size:0.85rem;color:var(--green);display:none">✓ Wszystkie pary dopasowane! Świetna robota!</div>
+  </div>
+
+  <!-- EXERCISE 2: MC quiz -->
+  <div class="exercise-block">
+    <h2>🧠 Ćwiczenie 2 — Quiz</h2>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak powiedzieć "Dobranoc" po niderlandzku?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb1'),'Goedenacht')">Goedemorgen</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('fb1'),'Goedenacht')">Goedenacht</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb1'),'Goedenacht')">Tot ziens</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb1'),'Goedenacht')">Aangenaam</button>
+      </div>
+      <div class="ex-feedback" id="fb1"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Ktoś mówi do ciebie "Hoe heet je?" — co odpowiadasz?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb2'),'Ik heet [imię].')">Tot straks!</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('fb2'),'Ik heet [imię].')">Ik heet [imię].</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb2'),'Ik heet [imię].')">Goedemiddag!</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb2'),'Ik heet [imię].')">Alstublieft.</button>
+      </div>
+      <div class="ex-feedback" id="fb2"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Która fraza jest powitaniem używanym wieczorem?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb3'),'Goedenavond')">Goedemorgen</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb3'),'Goedenavond')">Goedemiddag</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('fb3'),'Goedenavond')">Goedenavond</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('fb3'),'Goedenavond')">Goedenacht</button>
+      </div>
+      <div class="ex-feedback" id="fb3"></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3: fill -->
+  <div class="exercise-block">
+    <h2>✏️ Ćwiczenie 3 — Uzupełnij zdanie</h2>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Wpisz brakujące słowo: "Ik _____ Anna." (Nazywam się Anna.)</div>
+      <div class="fill-row">
+        <input class="fill-in" id="f1" placeholder="wpisz..." onkeydown="if(event.key==='Enter')cf('f1','fb-f1','heet')">
+        <button class="check-btn" onclick="cf('f1','fb-f1','heet')">Sprawdź</button>
+      </div>
+      <div class="ex-feedback" id="fb-f1"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak powiedzieć "Do zobaczenia wkrótce"? (2 słowa)</div>
+      <div class="fill-row">
+        <input class="fill-in" id="f2" placeholder="wpisz..." onkeydown="if(event.key==='Enter')cf('f2','fb-f2','tot straks')">
+        <button class="check-btn" onclick="cf('f2','fb-f2','tot straks')">Sprawdź</button>
+      </div>
+      <div class="ex-feedback" id="fb-f2"></div>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="../index.html" class="btn btn-outline">← Strona główna</a>
+    <a href="les-2.html" class="btn btn-primary">Lekcja 2 →</a>
+  </div>
+</div>
+
+<footer><p>Kurs Vlaams A1 · <a href="../index.html">Strona główna</a></p></footer>
+
+<script src="../assets/shared.js"></script>
+<script>
+let matchSelected = null;
+let matchedPairs = 0;
+const totalPairs = 5;
+
+function matchClick(el) {
+  if (el.classList.contains('matched')) return;
+  if (!matchSelected) {
+    if (matchSelected) matchSelected.classList.remove('selected');
+    matchSelected = el;
+    el.classList.add('selected');
+  } else {
+    if (matchSelected === el) { el.classList.remove('selected'); matchSelected = null; return; }
+    if (matchSelected.dataset.side === el.dataset.side) {
+      matchSelected.classList.remove('selected'); matchSelected = el; el.classList.add('selected'); return;
+    }
+    if (matchSelected.dataset.pair === el.dataset.pair) {
+      [matchSelected, el].forEach(e => { e.classList.remove('selected'); e.classList.add('matched'); e.onclick = null; });
+      matchedPairs++;
+      if (matchedPairs === totalPairs) document.getElementById('match-result').style.display = 'block';
+    } else {
+      [matchSelected, el].forEach(e => { e.classList.add('wrong-flash'); setTimeout(()=>e.classList.remove('wrong-flash'),500); });
+      matchSelected.classList.remove('selected');
+    }
+    matchSelected = null;
+  }
+}
+
+function cf(inputId, fbId, correct, alts) {
+  const inp = document.getElementById(inputId);
+  const fb  = document.getElementById(fbId);
+  handleFill(inp, inp.nextElementSibling, fb, correct, alts || []);
+}
+</script>
+</body>
+</html>

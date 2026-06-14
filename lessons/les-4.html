@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcja 4 – Transport | Vlaams A1</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">🇧🇪 Vlaams A1</a>
+  <div class="nav-links">
+    <a href="../index.html">Start</a>
+    <a href="../flashcards-werkwoorden.html">Fiszki</a>
+    <a href="../test.html">Test</a>
+  </div>
+</nav>
+
+<div class="lesson-wrap">
+  <div class="lesson-header">
+    <div class="breadcrumb"><a href="../index.html">Start</a> › Lekcja 4</div>
+    <div class="lesson-num" style="color:var(--accent);font-size:0.75rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">Lekcja 4</div>
+    <h1>Transport i miasto</h1>
+    <p>Jak poruszać się po belgijskim mieście, pytać o drogę i korzystać z komunikacji.</p>
+  </div>
+
+  <div class="vocab-section">
+    <h2>🚆 Słownictwo</h2>
+    <div class="vocab-grid">
+      <div class="vocab-item"><span class="vocab-nl">het station</span><span class="vocab-pl">dworzec</span></div>
+      <div class="vocab-item"><span class="vocab-nl">de trein</span><span class="vocab-pl">pociąg</span></div>
+      <div class="vocab-item"><span class="vocab-nl">de bus</span><span class="vocab-pl">autobus</span></div>
+      <div class="vocab-item"><span class="vocab-nl">de tram</span><span class="vocab-pl">tramwaj</span></div>
+      <div class="vocab-item"><span class="vocab-nl">de metro</span><span class="vocab-pl">metro</span></div>
+      <div class="vocab-item"><span class="vocab-nl">een ticket</span><span class="vocab-pl">bilet</span></div>
+      <div class="vocab-item"><span class="vocab-nl">links</span><span class="vocab-pl">w lewo</span></div>
+      <div class="vocab-item"><span class="vocab-nl">rechts</span><span class="vocab-pl">w prawo</span></div>
+      <div class="vocab-item"><span class="vocab-nl">rechtdoor</span><span class="vocab-pl">prosto</span></div>
+      <div class="vocab-item"><span class="vocab-nl">hier</span><span class="vocab-pl">tutaj</span></div>
+      <div class="vocab-item"><span class="vocab-nl">daar</span><span class="vocab-pl">tam</span></div>
+      <div class="vocab-item"><span class="vocab-nl">dichtbij</span><span class="vocab-pl">blisko</span></div>
+      <div class="vocab-item"><span class="vocab-nl">ver weg</span><span class="vocab-pl">daleko</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Waar is…?</span><span class="vocab-pl">Gdzie jest…?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">Hoe kom ik naar…?</span><span class="vocab-pl">Jak dojdę do…?</span></div>
+      <div class="vocab-item"><span class="vocab-nl">de straat</span><span class="vocab-pl">ulica</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <h2>💬 Wskazywanie drogi</h2>
+    <div class="ex-card" style="font-size:0.9rem;line-height:2">
+      <p><strong>A:</strong> Pardon, waar is het station?</p>
+      <p><strong>B:</strong> Ga rechtdoor, dan links, en het station is daar aan de rechterkant.</p>
+      <p><strong>A:</strong> Is het ver?</p>
+      <p><strong>B:</strong> Nee, het is dichtbij — vijf minuten te voet.</p>
+      <p><strong>A:</strong> Dank u wel!</p>
+      <hr style="border-color:var(--border);margin:16px 0">
+      <p style="color:var(--muted);font-size:0.8rem"><strong>PL:</strong> Przepraszam, gdzie jest dworzec? / Idź prosto, potem w lewo, i dworzec jest tam po prawej stronie. / Czy to daleko? / Nie, jest blisko — pięć minut pieszo. / Dziękuję bardzo!</p>
+    </div>
+  </div>
+
+  <div class="exercise-block">
+    <h2>🎯 Ćwiczenie 1 — Dopasuj</h2>
+    <div class="match-wrap">
+      <div class="match-col">
+        <div class="match-item" data-pair="1" data-side="nl" onclick="matchClick(this)">links</div>
+        <div class="match-item" data-pair="2" data-side="nl" onclick="matchClick(this)">de trein</div>
+        <div class="match-item" data-pair="3" data-side="nl" onclick="matchClick(this)">rechtdoor</div>
+        <div class="match-item" data-pair="4" data-side="nl" onclick="matchClick(this)">dichtbij</div>
+        <div class="match-item" data-pair="5" data-side="nl" onclick="matchClick(this)">een ticket</div>
+      </div>
+      <div class="match-col">
+        <div class="match-item" data-pair="4" data-side="pl" onclick="matchClick(this)">blisko</div>
+        <div class="match-item" data-pair="1" data-side="pl" onclick="matchClick(this)">w lewo</div>
+        <div class="match-item" data-pair="5" data-side="pl" onclick="matchClick(this)">bilet</div>
+        <div class="match-item" data-pair="3" data-side="pl" onclick="matchClick(this)">prosto</div>
+        <div class="match-item" data-pair="2" data-side="pl" onclick="matchClick(this)">pociąg</div>
+      </div>
+    </div>
+    <div id="match-result" style="margin-top:14px;font-size:0.85rem;color:var(--green);display:none">✓ Brawo!</div>
+  </div>
+
+  <div class="exercise-block">
+    <h2>🧠 Ćwiczenie 2 — Quiz</h2>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Ktoś mówi "Ga rechts!" — co robisz?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb1'),'Skręcasz w prawo.')">Idziesz prosto.</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb1'),'Skręcasz w prawo.')">Skręcasz w lewo.</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('qfb1'),'Skręcasz w prawo.')">Skręcasz w prawo.</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb1'),'Skręcasz w prawo.')">Zatrzymujesz się.</button>
+      </div>
+      <div class="ex-feedback" id="qfb1"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Jak zapytać "Gdzie jest autobus?"</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb2'),'Waar is de bus?')">Hoe kom ik naar de bus?</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('qfb2'),'Waar is de bus?')">Waar is de bus?</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb2'),'Waar is de bus?')">Is de bus dichtbij?</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb2'),'Waar is de bus?')">Wat kost een ticket?</button>
+      </div>
+      <div class="ex-feedback" id="qfb2"></div>
+    </div>
+
+    <div class="ex-card">
+      <div class="ex-prompt">Co oznacza "ver weg"?</div>
+      <div class="ex-options">
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb3'),'daleko')">blisko</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb3'),'daleko')">tutaj</button>
+        <button class="ex-opt" onclick="handleMC(this,true, document.getElementById('qfb3'),'daleko')">daleko</button>
+        <button class="ex-opt" onclick="handleMC(this,false,document.getElementById('qfb3'),'daleko')">tam</button>
+      </div>
+      <div class="ex-feedback" id="qfb3"></div>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="les-3.html" class="btn btn-outline">← Lekcja 3</a>
+    <a href="les-5.html" class="btn btn-primary">Lekcja 5 →</a>
+  </div>
+</div>
+
+<footer><p>Kurs Vlaams A1 · <a href="../index.html">Strona główna</a></p></footer>
+<script src="../assets/shared.js"></script>
+<script>
+let matchSelected=null,matchedPairs=0;
+function matchClick(el){
+  if(el.classList.contains('matched'))return;
+  if(!matchSelected){matchSelected=el;el.classList.add('selected');}
+  else{
+    if(matchSelected===el){el.classList.remove('selected');matchSelected=null;return;}
+    if(matchSelected.dataset.side===el.dataset.side){matchSelected.classList.remove('selected');matchSelected=el;el.classList.add('selected');return;}
+    if(matchSelected.dataset.pair===el.dataset.pair){
+      [matchSelected,el].forEach(e=>{e.classList.remove('selected');e.classList.add('matched');e.onclick=null;});
+      matchedPairs++;if(matchedPairs===5)document.getElementById('match-result').style.display='block';
+    }else{[matchSelected,el].forEach(e=>{e.classList.add('wrong-flash');setTimeout(()=>e.classList.remove('wrong-flash'),500);});matchSelected.classList.remove('selected');}
+    matchSelected=null;
+  }
+}
+</script>
+</body>
+</html>
